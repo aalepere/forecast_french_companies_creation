@@ -1,10 +1,16 @@
 import logging
 import os
+import warnings
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import plotly
 from fbprophet import Prophet
+
+logging.getLogger("fbprophet").setLevel(logging.ERROR)
+warnings.filterwarnings("ignore")
+pd.plotting.register_matplotlib_converters()
 
 if __name__ == "__main__":
     # execute only if run as a script
@@ -44,7 +50,7 @@ if __name__ == "__main__":
 
     logging.info("Plot Initial ...")
     plt.figure()
-    plt.plot_date(df["ds"], df["y"])
+    plt.plot(df["ds"].dt.to_pydatetime(), df["y"], "k.")
     plt.show()
 
     logging.info("Forecasting...")
@@ -59,7 +65,5 @@ if __name__ == "__main__":
     print(forecast[["ds", "yhat", "yhat_lower", "yhat_upper"]].tail())
 
     logging.info("Plot results")
-    logging.info("...Figure 1 Forecast")
     fig1 = m.plot(forecast)
-    logging.info("...Figure 2 components")
-    fig2 = m.plot_components(forecast)
+    plt.show()
