@@ -63,7 +63,7 @@ if __name__ == "__main__":
     # Display initial time serie
     logging.info("Plot Initial ...")
     plt.figure()
-    plt.plot(df["ds"].dt.to_pydatetime(), df["y"], "k.")
+    plt.plot(df["ds"].dt.to_pydatetime(), df["y"], ls='-', c='#0072B2')
     plt.show()
 
     # Forecasting model
@@ -81,4 +81,6 @@ if __name__ == "__main__":
     # Results
     logging.info("Plot results")
     fig1 = m.plot(forecast)
+    plt.show()
+    fig2 = m.plot_components(forecast)
     plt.show()
